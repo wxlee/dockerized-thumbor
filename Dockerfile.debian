@@ -1,0 +1,30 @@
+# temp
+FROM python:3.9-slim-bullseye AS builder
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libffi-dev \
+    libssl-dev \
+    python3-dev \
+    zlib1g-dev
+
+RUN pip install --prefix=/install thumbor
+
+# final
+FROM python:3.9-slim-bullseye
+
+COPY --from=builder /install /usr/local
+
+RUN apt-get update && apt-get install -y \
+    libffi7 \
+    libpng16-16 \
+    libjpeg62-turbo \
+    libwebp6 \
+    zlib1g
+
+
+COPY thumbor_sample.conf /usr/local/thumbor.conf
+
+EXPOSE 8000
+
+CMD ["thumbor", "--port=8000", "--conf=/usr/local/thumbor.conf", "--log-level=debug"]

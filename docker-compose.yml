@@ -1,0 +1,29 @@
+version: "3"
+services:
+  thumbor:
+    image: thumbor
+#    container_name: thumbor
+    build:
+      context: .
+    restart: always
+#    env_file:
+#      - ../env_file/thumbor.env 
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    volumes:
+      - '~/container_thumbor:/home/webuser/host_vol'
+    ports:
+      - '8000-8002:8000'
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}.{{.ID}}"

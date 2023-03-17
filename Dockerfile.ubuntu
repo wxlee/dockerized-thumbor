@@ -1,0 +1,23 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get upgrade && \
+    apt-get install -y openssh-server vim git python3-pip gifsicle libjpeg-progs  && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /var/run/sshd
+RUN echo 'root:YouNeverSeeThat' | chpasswd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+  
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+
+# Install thumbor
+RUN wget https://github.com/thumbor/thumbor/archive/refs/tags/7.4.7.tar.gz -O /opt/thumbor-7.4.7.tgz && cd /opt/ && tar zxf /opt/thumbor-7.4.7.tgz && cd /opt/thumbor-7.4.7 && pip install . && pip install pillow-avif-plugin olefile
+
+COPY thumbor_sample.conf /opt/thumbor.conf
+
+CMD ["thumbor", "--port=8000", "--conf=/opt/thumbor.conf", "--log-level=debug"]
