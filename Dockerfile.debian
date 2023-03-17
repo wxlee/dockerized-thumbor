@@ -1,5 +1,5 @@
 # temp
-FROM python:3.9-slim-bullseye AS builder
+FROM python:3.9.16-slim-bullseye AS builder
 
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -11,16 +11,16 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --prefix=/install thumbor
 
 # final
-FROM python:3.9-slim-bullseye
+FROM python:3.9.16-slim-bullseye
 
 COPY --from=builder /install /usr/local
 
-RUN apt-get update && apt-get install -y \
-    libffi7 \
-    libpng16-16 \
-    libjpeg62-turbo \
-    libwebp6 \
-    zlib1g
+#RUN apt-get update && apt-get install -y \
+#    libffi7 \
+#    libpng16-16 \
+#    libjpeg62-turbo \
+#    libwebp6 \
+#    zlib1g
 
 
 COPY thumbor_sample.conf /usr/local/thumbor.conf

@@ -3,6 +3,9 @@
 # Build up image
 docker-compose build
 
+# Build up image no cache
+docker-compose build --no-cache
+
 # Run and scale to 3 containers
 docker-compose up -d --scale thumbor=3
 
@@ -27,6 +30,6 @@ http://127.0.0.1:8000/unsafe/640x0/filters:format(webp)/https://images.pexels.co
 # Images size
 |REPOSITORY      |SIZE|
 |:--------------:|:-----:|
-|alpine_thumbor  |81.6MB|
-|debian_thumbor  |176MB|
+|alpine_thumbor  |79.6MB|
 |ubuntu_thumbor  |81MB|
+|debian_thumbor  |155MB|

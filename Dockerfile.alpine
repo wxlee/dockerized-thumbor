@@ -16,12 +16,12 @@ FROM python:3.9-alpine
 
 COPY --from=builder /install /usr/local
 
-RUN apk add --no-cache \
-    libffi \
-    libpng \
-    libjpeg \
-    libwebp \
-    zlib
+#RUN apk add --no-cache \
+#    libffi \
+#    libpng \
+#    libjpeg \
+#    libwebp \
+#    zlib
 
 COPY thumbor_sample.conf /usr/local/thumbor.conf
 

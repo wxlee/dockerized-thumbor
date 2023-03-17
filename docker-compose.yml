@@ -1,7 +1,9 @@
 version: "3"
 services:
   thumbor:
-    image: thumbor
+    image: alpine_thumbor
+#    image: debian_thumbor
+#    image: ubuntu_thumbor
 #    container_name: thumbor
     build:
       context: .
