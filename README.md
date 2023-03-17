@@ -23,3 +23,10 @@ https://images.pexels.com/photos/258109/pexels-photo-258109.jpeg
 ex:
 
 http://127.0.0.1:8000/unsafe/640x0/filters:format(webp)/https://images.pexels.com/photos/258109/pexels-photo-258109.jpeg
+
+# Images size
+|REPOSITORY      |SIZE|
+|:--------------:|:-----:|
+|alpine_thumbor  |81.6MB|
+|debian_thumbor  |176MB|
+|ubuntu_thumbor  |81MB|
