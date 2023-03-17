@@ -11,6 +11,13 @@ docker-compose up -d --scale thumbor=3
 
 # Logs
 docker-compose logs -f thumbor
+
+# Stop
+docker-compose stop thumbor
+
+# Remove
+docker-compose rm thumbor
+
 ```
 
 # Resize (640) and Convert to webp
